@@ -1,12 +1,16 @@
 
-#include "LanScanner.hpp"
 #include <ifaddrs.h>
 #include <iostream>
-
 #include <arpa/inet.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <linux/if_link.h>
+
+#include "LanScanner.hpp"
+#include "PortScanner.hpp"
+
+LanScanner::LanScanner(bool scanPort) : m_scanPorts(scanPort){}
+
 
 void LanScanner::getHostIp()
 {
@@ -39,6 +43,15 @@ void LanScanner::printIpAddreses()
     }
 }
 
+void LanScanner::pingIp(const std::string &p_ipAddr)
+{
+    if(m_scanPorts == true)
+    {
+        
+    }
+}
+
+
 void LanScanner::lanScan(std::string p_ipAddr)
 {
     std::cout << p_ipAddr << std::endl;
@@ -46,13 +59,15 @@ void LanScanner::lanScan(std::string p_ipAddr)
     if(auto found = p_ipAddr.find("*"); found != std::string::npos)
     {
         p_ipAddr.erase(found);
+
         for(auto i = 0; i <= 255; i++)
         {
-            std::cout << p_ipAddr + std::to_string(i) << std::endl;
+            pingIp(p_ipAddr + std::to_string(i));
         }
     }
-    
-    
-    // std::cout << p_ipAddr;
-    
+    else 
+    {
+        pingIp(p_ipAddr);
+    }
 }
+    
