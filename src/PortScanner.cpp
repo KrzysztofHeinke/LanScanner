@@ -22,7 +22,7 @@ void PortScanner::isOpen()
     if (connect(this->sfd, this->result->ai_addr, this->result->ai_addrlen) != -1)
     {
         std::cout << "Open port -> " << this->port << std::endl;
-//        getsockname(sfd,this->result->ai_addr,&this->result->ai_addrlen);
+        getsockname(sfd,this->result->ai_addr,&this->result->ai_addrlen);
     }
     else
     {

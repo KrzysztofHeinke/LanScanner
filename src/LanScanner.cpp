@@ -2,6 +2,7 @@
 #include <ifaddrs.h>
 #include <iostream>
 #include <arpa/inet.h>
+#include <string>
 #include <sys/socket.h>
 #include <netdb.h>
 #include <linux/if_link.h>
@@ -47,7 +48,16 @@ void LanScanner::pingIp(const std::string &p_ipAddr)
 {
     if(m_scanPorts == true)
     {
-        
+        for(auto i = 0; i<255; ++i)
+        {
+          PortScanner port(p_ipAddr, std::to_string(i));
+          port.isOpen();
+        }
+    }
+    else
+    {
+        constexpr int echoPort = 7;
+        PortScanner port(p_ipAddr, std::to_string(echoPort));
     }
 }
 
